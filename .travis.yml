@@ -3,21 +3,21 @@ services:
   - docker
 
 before_install:
-  - docker build -t sendil/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t sendil211/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run sendil/react-test npm test -- --coverage
+  - docker run sendil211/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t sendil/multi-client ./client
-  - docker build -t sendil/multi-nginx ./nginx
-  - docker build -t sendil/multi-server ./server
-  - docker build -t sendil/multi-worker ./worker
+  - docker build -t sendil211/multi-client ./client
+  - docker build -t sendil211/multi-nginx ./nginx
+  - docker build -t sendil211/multi-server ./server
+  - docker build -t sendil211/multi-worker ./worker
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  
-  - docker push sendil/multi-client
-  - docker push sendil/multi-nginx
-  - docker push sendil/multi-server
-  - docker push sendil/multi-worker
+
+  - docker push sendil211/multi-client
+  - docker push sendil211/multi-nginx
+  - docker push sendil211/multi-server
+  - docker push sendil211/multi-worker
 
