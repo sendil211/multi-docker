@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t sendil/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run sendil/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t sendil/multi-client ./client
+  - docker build -t sendil/multi-nginx ./nginx
+  - docker build -t sendil/multi-server ./server
+  - docker build -t sendil/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  
+  - docker push sendil/multi-client
+  - docker push sendil/multi-nginx
+  - docker push sendil/multi-server
+  - docker push sendil/multi-worker
+
