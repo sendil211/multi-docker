@@ -21,6 +21,7 @@ after_success:
   - docker push sendil211/multi-server
   - docker push sendil211/multi-worker
 
+
   deploy:
     provider: elasticbeanstalk
     region: eu-west-3
