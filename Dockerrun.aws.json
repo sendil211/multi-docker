@@ -1,0 +1,35 @@
+{
+    "AWSEBDockerrunVersion":2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "sendil211/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "sendil211/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "sendil211/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "sendil211/multi-nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "contatinerPort": 80
+                }
+            ],
+            "links": ["client","server"]
+        }
+    ]
+}
